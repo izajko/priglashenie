@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Приглашение на свидание Любимую Зайку(Настульку)</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ffe6e6;
+            color: #4a4a4a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        h1 { color: #ff4d6d; font-size: 24px; margin-bottom: 5px; }
+        .stars { color: #ffb3c1; letter-spacing: 3px; margin-bottom: 20px; }
+        .input-group { margin-bottom: 15px; text-align: left; }
+        label { display: block; font-weight: bold; margin-bottom: 5px; color: #ff758f; }
+        input[type="date"], input[type="time"], select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ffccd5;
+            border-radius: 10px;
+            outline: none;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        input:focus, select:focus { border-color: #ff758f; }
+        .btn {
+            background-color: #ff4d6d;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 18px;
+            border-radius: 25px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+            transition: background 0.3s, transform 0.1s;
+        }
+        .btn:hover { background-color: #ff2a54; }
+        .btn:active { transform: scale(0.98); }
+
+        /* Стили финального билета */
+        .ticket-card {
+            display: none;
+            margin-top: 25px;
+            background: #fff0f3;
+            border: 3px dashed #ff4d6d;
+            border-radius: 15px;
+            padding: 20px;
+            position: relative;
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Интерактивное сердце */
+        .heart-button {
+            font-size: 65px;
+            cursor: pointer;
+            display: inline-block;
+            user-select: none;
+            transition: transform 0.1s ease;
+            position: relative;
+            margin: 15px 0;
+        }
+        .heart-button:active { transform: scale(1.3); }
+
+        /* Элементы эффекта клика (маленькие сердечки) */
+        .click-sparkle {
+            position: absolute;
+            pointer-events: none;
+            font-size: 20px;
+            animation: floatUp 0.6s ease-out forwards;
+            opacity: 0;
+        }
+        @keyframes floatUp {
+            0% { transform: translate(0, 0) scale(0.5); opacity: 1; }
+            100% { transform: translate(var(--x), var(--y)) scale(1.2); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>✨ Приглашение на свидание Любимую Зайку(Настульку)</h1>
+    <div class="stars">✦ ✦ ✦</div>
+    <p style="font-weight: bold; color: #ff4d6d;">❤ выбери идеальный вечер</p>
+
+    <!-- Форма выбора -->
+    <div class="input-group">
+        <label>📅 Дата</label>
+        <input type="date" id="dateInput">
+    </div>
+
+    <div class="input-group">
+        <label>⏳ Время</label>
+        <input type="time" id="timeInput">
+    </div>
+
+    <div class="input-group">
+        <label>✨ Настроение / Формат</label>
+        <select id="formatInput">
+            <option value="" disabled selected>Что бы ты выбрала?</option>
+            <option value="🌿 Прогулка в парке">🌿 Прогулка в парке</option>
+            <option value="☕ Кофе и разговоры">☕ Кофе и разговоры</option>
+            <option value="🎬 Кино и попкорн">🎬 Кино и попкорн</option>
+            <option value="🕯 Ужин при свечах">🕯 Ужин при свечах</option>
+            <option value="🎳 Боулинг / квест">🎳 Боулинг / квест</option>
+			<option value="🏓 Играть в настольный теннис">🏓 Играть в настольный теннис</option>
+            <option value="🏸 Играть в бадминтон">🏸 Играть в бадминтон</option>
+            <option value="🦮 Выгулять Пуха 🐾">🦮 Выгулять Пуха 🐾</option>
+            <option value="🚗 Поехать в Баранки">🚗 Поехать в Баранки</option>
+            <option value="🏖 Поехать на Свитязь">🏖 Поехать на Свитязь</option>
+            <option value="🌊 Поехать в аквапарк">🌊 Поехать в аквапарк</option>
+            <option value="🍣 Хочу суши">🍣 Хочу суши</option>
+            <option value="🍕 Хочу пиццу">🍕 Хочу пиццу</option>
+            <option value="🎁 Сюрприз (доверься)">🎁 Сюрприз (доверься)</option>
+        </select>
+    </div>
+
+    <button class="btn" id="submitBtn">💫 Подтвердить выбор</button>
+
+    <!-- Итоговый билет-приглашение -->
+    <div class="ticket-card" id="ticket">
+        <h3 style="color: #ff4d6d; margin-top: 0;">⋆ ты выбрала ⋆</h3>
+        <p><strong>📅 Дата:</strong> <span id="resDate"></span></p>
+        <p><strong>⏳ Время:</strong> <span id="resTime"></span></p>
+        <p><strong>✨ Формат:</strong> <span id="resFormat"></span></p>
+        
+        <!-- Кликабельное сердце -->
+        <div class="heart-button" id="heartBtn">❤️</div>
+        
+        <p style="font-weight: bold; color: #ff4d6d; margin-bottom: 0;">Я всё подготовлю, милая ❤<br>это будет особенное свидание</p>
+    </div>
+</div>
+
+<script>
+    const submitBtn = document.getElementById('submitBtn');
+    const ticket = document.getElementById('ticket');
+    const heartBtn = document.getElementById('heartBtn');
+
+    // Нажатие на кнопку подтверждения
+    submitBtn.addEventListener('click', () => {
+        const date = document.getElementById('dateInput').value;
+        const time = document.getElementById('timeInput').value;
+        const format = document.getElementById('formatInput').value;
+
+        // Проверка заполненности всех полей
+        if (!date || !time || !format) {
+            alert('Пожалуйста, заполни все пункты! 💕');
+            return;
+        }
+
+        // Перенос данных в билет
+        // Красивое форматирование даты (дд.мм.гггг)
+        const formattedDate = date.split('-').reverse().join('.');
+        document.getElementById('resDate').textContent = formattedDate;
+        document.getElementById('resTime').textContent = time;
+        document.getElementById('resFormat').textContent = format;
+
+        // Показываем билет
+        ticket.style.display = 'block';
+        
+        // Плавный скролл к билету
+        ticket.scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // Эффекты кликабельности на сердце
+    heartBtn.addEventListener('click', (e) => {
+        // Создаем 5 маленьких сердечек вокруг при каждом клике
+        for (let i = 0; i < 5; i++) {
+            createSparkle(e);
+        }
+    });
+
+    function createSparkle(e) {
+        const sparkle = document.createElement('div');
+        sparkle.classList.add('click-sparkle');
+        sparkle.textContent = '❤️';
+        
+        // Случайное направление разлета маленьких сердечек
+        const x = (Math.random() - 0.5) * 150;
+        const y = (Math.random() - 0.7) * 150;
+        
+        sparkle.style.setProperty('--x', `${x}px`);
+        sparkle.style.setProperty('--y', `${y}px`);
+        
+        // Позиционируем относительно клика мыши
+        sparkle.style.left = `${e.clientX - 10}px`;
+        sparkle.style.top = `${e.clientY - 10}px`;
+        sparkle.style.position = 'fixed'; // Фиксируем, чтобы летели ровно от мышки
+
+        document.body.appendChild(sparkle);
+
+        // Удаляем элемент после завершения анимации
+        setTimeout(() => {
+            sparkle.remove();
+        }, 600);
+    }
+</script>
+
+</body>
+</html>
